@@ -1,0 +1,18 @@
+- name: Install Node.js LTS
+  become: true
+  shell: |
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&\
+    sudo apt-get install -y nodejs
+
+- name: Use n to switch to Node.js 13.8.0
+  become: true
+  shell: |
+    sudo npm install --global n
+    sudo n 13.8.0
+
+- name: Install PM2 Process Manager
+  become: true
+  npm:
+    name: pm2
+    global: true
+    state: latest

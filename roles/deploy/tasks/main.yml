@@ -1,0 +1,16 @@
+- name: Create a directory for the app on the server
+  file:
+    path: /home/ubuntu/app
+    state: directory
+    mode: '0755'
+
+- name: Copy server app from the control node
+  copy:
+    src: server-app.js
+    dest: /home/ubuntu/app
+
+- name: Run and daemonize the app with PM2
+  shell: |
+    cd /home/ubuntu/app
+    pm2 stop default
+    pm2 start server-app.js
